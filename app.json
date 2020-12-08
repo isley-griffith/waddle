@@ -27,6 +27,17 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "IOS_KEY": "",
+      "ANDROID_KEY": "",
+      "API_KEY": "",
+      "AUTH_DOMAIN": "",
+      "DATABASE_URL": "",
+      "PROJECT_ID": "waddle-174e1",
+      "STORAGE_BUCKET": "",
+      "MESSAGE_SENDER_ID": "1002851750050",
+      "APP_ID": "1:1002851750050:web:689ecff32cada1c7c287fb"
     }
   }
 }
