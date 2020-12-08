@@ -62,6 +62,20 @@ export default function App() {
     setUser(user)
   }
 
+  // ADDING USER TO FIRESTORE
+  // async function test() {
+  //   const res = await db.collection('users').add({
+  //     email: 'isley.g.itmg@gmail.com',
+  //     firstName: 'Isley',
+  //     lastName: 'Griffith'
+  //   });
+  
+  //   console.log('Added doc with ID: ', res.id)
+  // }
+
+  // test()
+ 
+
   if(!user) {
     return <View style={styles.container}>
       <TextInput style={styles.input} 
@@ -71,8 +85,13 @@ export default function App() {
       ></TextInput>
       <Button 
       onPress={handlePress}
-      title="Sign up">
+      title="Sign up"
+      
+      >
       </Button>
+
+
+
     </View>
   }
 
