@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import { Text, View, StyleSheet, SafeAreaView, StatusBar, TouchableOpacity, Image } from 'react-native'
 import { Avatar, Accessory, Divider, Card } from 'react-native-elements'
 import * as firebase from 'firebase';
@@ -12,18 +12,44 @@ const mapTextColor = "#818996";
 
 
 
-export default class ProfileScreen extends Component {
+export default function ProfileScreen ( {navigation}) {
+    let currentUserUID = firebase.auth().currentUser.uid;
 
-    render() {
+        const [firstName, setFirstName] = useState('');
+   
         StatusBar.setBarStyle('dark-content', true);
+
+        useEffect(() => {
+            async function getUserInfo(){
+              try {
+                let doc = await firebase
+                  .firestore()
+                  .collection('users')
+                  .doc(currentUserUID)
+                  .get();
+        
+                if (!doc.exists){
+                  Alert.alert('No user data found!')
+                } else {
+                  let dataObj = doc.data();
+                  setFirstName(dataObj.firstName)
+                }
+              } catch (err){
+              Alert.alert('There is an error.', err.message)
+              }
+            }
+            getUserInfo();
+          })
+
         const handlePress = () => {
             loggingOut()
+
         }
         return ( 
             <SafeAreaView >
                 <StatusBar backgroundColor={mapColor}></StatusBar>
                 <View style={styles.divider}></View>
-                <Text style={styles.baseText}>Profile</Text>
+                <Text style={styles.baseText}>{firstName}'s Profile</Text>
                 <View style={styles.divider}></View>
                 <Divider style={{ backgroundColor: 'grey' }} />
                 <View>
@@ -31,9 +57,6 @@ export default class ProfileScreen extends Component {
                            style = {styles.image} />
                 </View>
                 <View style = {{height:10}}></View>
-                    <TouchableOpacity>
-                        <Text style = {styles.optionText}>My Profile</Text>
-                    </TouchableOpacity>
                     <TouchableOpacity>
                         <Text style = {styles.optionText}>My Trips</Text>
                     </TouchableOpacity>
@@ -49,7 +72,6 @@ export default class ProfileScreen extends Component {
                 
             </SafeAreaView>
         )
-    }
 }
 
 const styles = StyleSheet.create({
