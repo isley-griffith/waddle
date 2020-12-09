@@ -1,4 +1,4 @@
-import {ImageBackground, StyleSheet, View, Text} from 'react-native';
+import {ImageBackground, StyleSheet, View, Text, Image } from 'react-native';
 import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -9,6 +9,9 @@ export default function WelcomeScreen ({navigation}) {
       source={require('../assets/background.jpg')}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Wing</Text>
+        {/* <Image
+          source={require('../assets/logo.png')}
+        /> */}
       </View>
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Sign Up')} >
         <Text style={styles.buttonText}>Sign Up</Text>
@@ -28,7 +31,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
     },
     button: {
-      width: 200,
+      width: 250,
       borderRadius: 15,
       borderWidth: 3,
       borderColor: 'white',
