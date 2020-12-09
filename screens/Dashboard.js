@@ -4,6 +4,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as firebase from 'firebase';
 import {loggingOut} from '../API/firebaseMethods';
 
+import MapScreen from './MapScreen'
+
 export default function Dashboard({ navigation }) {
   let currentUserUID = firebase.auth().currentUser.uid;
   const [firstName, setFirstName] = useState('');
@@ -17,7 +19,7 @@ export default function Dashboard({ navigation }) {
       .get();
 
       if (!doc.exists){
-        Alert.alert('No user data found!')
+        Alert.alert('No user data found')
       } else {
         let dataObj = doc.data();
         setFirstName(dataObj.firstName)
@@ -31,13 +33,9 @@ export default function Dashboard({ navigation }) {
     navigation.replace('Home');
   };
 
-  return (
+  return ( //Tab navigator goes here
     <View style={styles.container}>
-      <Text style={styles.titleText}>Dashboard</Text>
-      <Text style={styles.text}>Hi, {firstName}</Text>
-      <TouchableOpacity style={styles.button} onPress={handlePress}>
-        <Text style={styles.buttonText}>Log Out</Text>
-      </TouchableOpacity>
+        <MapScreen></MapScreen>
     </View>
   )
 }
