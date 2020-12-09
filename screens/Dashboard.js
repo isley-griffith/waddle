@@ -36,6 +36,9 @@ export default function Dashboard({ navigation }) {
     getUserInfo();
   })
 
+  // loggingOut();
+  // navigation.replace('Home')
+
   const handlePress = () => {
     loggingOut();
     navigation.replace('Home');

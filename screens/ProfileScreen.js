@@ -1,11 +1,56 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, SafeAreaView, StatusBar, TouchableOpacity, Image } from 'react-native'
 import { Avatar, Accessory, Divider, Card } from 'react-native-elements'
+import * as firebase from 'firebase';
+
+import {loggingOut} from '../API/firebaseMethods'
 
 const _font = 'San Francisco';
 const _fontSize = 32;
 const mapColor = "#262f3d";
 const mapTextColor = "#818996";
+
+
+
+export default class ProfileScreen extends Component {
+
+    render() {
+        StatusBar.setBarStyle('dark-content', true);
+        const handlePress = () => {
+            loggingOut()
+        }
+        return ( 
+            <SafeAreaView >
+                <StatusBar backgroundColor={mapColor}></StatusBar>
+                <View style={styles.divider}></View>
+                <Text style={styles.baseText}>Profile</Text>
+                <View style={styles.divider}></View>
+                <Divider style={{ backgroundColor: 'grey' }} />
+                <View>
+                    <Image source = {{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+                           style = {styles.image} />
+                </View>
+                <View style = {{height:10}}></View>
+                    <TouchableOpacity>
+                        <Text style = {styles.optionText}>My Profile</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Text style = {styles.optionText}>My Trips</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Text style = {styles.optionText}>Settings</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Text style = {styles.optionText}>About</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Text onPress={handlePress}style={styles.optionText}>Log Out</Text>
+                    </TouchableOpacity>
+                
+            </SafeAreaView>
+        )
+    }
+}
 
 const styles = StyleSheet.create({
     baseText: {
@@ -42,39 +87,3 @@ const styles = StyleSheet.create({
     }
 
 }) 
-
-export default class ProfileScreen extends Component {
-    render() {
-        StatusBar.setBarStyle('dark-content', true);
-        return ( 
-            <SafeAreaView >
-                <StatusBar backgroundColor={mapColor}></StatusBar>
-                <View style={styles.divider}></View>
-                <Text style={styles.baseText}>Profile</Text>
-                <View style={styles.divider}></View>
-                <Divider style={{ backgroundColor: 'grey' }} />
-                <View>
-                    <Image source = {{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
-                           style = {styles.image} />
-                </View>
-                <View style = {{height:10}}></View>
-                    <TouchableOpacity>
-                        <Text style = {styles.optionText}>My Profile</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Text style = {styles.optionText}>My Trips</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Text style = {styles.optionText}>Settings</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Text style = {styles.optionText}>About</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Text style = {styles.optionText}>Log Out</Text>
-                    </TouchableOpacity>
-                
-            </SafeAreaView>
-        )
-    }
-}
