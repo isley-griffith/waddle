@@ -4,7 +4,15 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as firebase from 'firebase';
 import {loggingOut} from '../API/firebaseMethods';
 
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer, TabActions } from '@react-navigation/native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+
 import MapScreen from './MapScreen'
+import HomeScreen from './HomeScreen'
+import ProfileScreen from './ProfileScreen'
+
+const TabMember = createBottomTabNavigator();
 
 export default function Dashboard({ navigation }) {
   let currentUserUID = firebase.auth().currentUser.uid;
@@ -34,9 +42,33 @@ export default function Dashboard({ navigation }) {
   };
 
   return ( //Tab navigator goes here
-    <View style={styles.container}>
-        <MapScreen></MapScreen>
-    </View>
+    // <View style={styles.container}>
+    //     <MapScreen></MapScreen>
+    // </View>
+    <NavigationContainer independent={true}>
+      <TabMember.Navigator tabBarOptions ={{
+            keyboardHidesTabBar: "true:",
+            inactiveTintColor: '#c0c0c0',
+            activeTintColor: '#696969'
+          }}>
+            <TabMember.Screen name='Home' component={HomeScreen} options={{
+              tabBarIcon: ({color, size}) => (
+                <MaterialCommunityIcons name="home" color={color} size={size}/> ),
+              }}
+            />
+            <TabMember.Screen name='Map' component={MapScreen} options={{
+              tabBarIcon: ({color, size}) => (
+                <MaterialCommunityIcons name="map" color={color} size={size}/> ),
+              }}
+            />
+            <TabMember.Screen name="Profile" component={ProfileScreen} options={{
+              tabBarIcon: ({color, size}) => (
+                <MaterialCommunityIcons name="account-circle" color={color} size={size}/> ),
+              }}
+            />
+      </TabMember.Navigator>
+    </NavigationContainer>
+
   )
 }
 
