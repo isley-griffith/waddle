@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import MapView from 'react-native-maps';
+import CreateRideButton from '../components/CreateRideButton';
+import RideData from '../components/RideData.js'
 
 export default function MapScreen() {
+    const [dataVisibility, setDataVisibility] = useState(false);
     return (
       <View style={styles.container}>
         <MapView 
@@ -18,23 +21,29 @@ export default function MapScreen() {
           }}
           customMapStyle={mapStyleNight}
         >
+
+          {dataVisibility ? <RideData /> : null}
+          <CreateRideButton setDataVisibility={setDataVisibility} dataVisibility={dataVisibility}/>
         </MapView>
+
       </View>
     )
 }
 
 
 const styles = StyleSheet.create({
-
     container: {
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        
       },
       mapStyle: {
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
+        flex: 1,
+
       },
 })
 

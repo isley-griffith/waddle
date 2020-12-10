@@ -45,9 +45,7 @@ export default function Dashboard({ navigation }) {
   };
 
   return ( //Tab navigator goes here
-    // <View style={styles.container}>
-    //     <MapScreen></MapScreen>
-    // </View>
+
     <NavigationContainer independent={true}>
       <TabMember.Navigator tabBarOptions ={{
             keyboardHidesTabBar: "true:",

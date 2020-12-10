@@ -16,7 +16,7 @@ export async function registration(email, password, lastName, firstName) {
         firstName: firstName,
       });
   } catch (err) {
-    Alert.alert("There is something wrong!!!!", err.message);
+    Alert.alert("Something went wrong.", err.message);
   }
 }
 
@@ -26,7 +26,7 @@ export async function signIn(email, password) {
       .auth()
       .signInWithEmailAndPassword(email, password);
   } catch (err) {
-    Alert.alert("There is something wrong!", err.message);
+    Alert.alert("Something went wrong.", err.message);
   }
 }
 
@@ -34,6 +34,6 @@ export async function loggingOut() {
   try {
     await firebase.auth().signOut();
   } catch (err) {
-    Alert.alert('There is something wrong!', err.message);
+    Alert.alert('Something went wrong.', err.message);
   }
 }
