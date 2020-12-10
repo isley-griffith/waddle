@@ -47,23 +47,30 @@ export default function SignUp({ navigation }) {
      <View style={styles.container}>
        <Text style={styles.text}>Create an account </Text>
 
-       <ScrollView onBlur={Keyboard.dismiss}>
+       {/* onBlur={Keyboard.dismiss} */}
+       <ScrollView keyboardShouldPersistTaps="always">
           <TextInput
           style={styles.textInput}
           returnKeyType = "next"
           placeholder="First name*"
           value={firstName}
           onChangeText={(name) => setFirstName(name)}
+          bluronSubmit = {false}
+          onSubmitEditing={() => { this.secondTextInput.focus(); }}
           />
          <TextInput
+          ref={(input) => { this.secondTextInput = input; }}
           style={styles.textInput}
           placeholder="Last name"
           returnKeyType = "next"
           value={lastName}
           onChangeText={(name) => setLastName(name)}
+          bluronSubmit = {false}
+          onSubmitEditing={() => { this.emailInput.focus(); }}
          />
 
          <TextInput
+          ref={(input) => { this.emailInput = input; }}
           style={styles.textInput}
           placeholder="Enter your email*"
           keyboardType = "email-address"
@@ -72,22 +79,31 @@ export default function SignUp({ navigation }) {
           onChangeText={(email) => setEmail(email)}
           keyboardType="email-address"
           autoCapitalize="none"
+          bluronSubmit = {false}
+          onSubmitEditing={() => { this.passwordInput.focus(); }}
          />
 
           <TextInput
+          ref={(input) => { this.passwordInput = input; }}
           style={styles.textInput}
           placeholder="Enter your password*"
           returnKeyType = "next"
           value={password}
           onChangeText={(password) => setPassword(password)}
           secureTextEntry={true}
+          bluronSubmit = {false}
+          onSubmitEditing={() => { this.confirmPassword.focus(); }}
          />
          <TextInput
+          ref={(input) => { this.confirmPassword = input; }}
           style={styles.textInput}
           placeholder="Retype your password to confirm*"
+          returnKeyType = "done"
           value={confirmPassword}
           onChangeText={(password2) => setConfirmPassword(password2)}
           secureTextEntry={true}
+          blurOnSubmit = {true}
+          onBlur = {Keyboard.dismiss}
           />
           <TouchableOpacity style={styles.button} onPress={handlePress}>
            <Text style={styles.buttonText}>Sign Up</Text>
