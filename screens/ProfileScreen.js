@@ -39,11 +39,10 @@ export default function ProfileScreen ( {navigation}) {
               }
             }
             getUserInfo();
-          })
+        })
 
         const handlePress = () => {
             loggingOut()
-
         }
         return ( 
             <SafeAreaView >
