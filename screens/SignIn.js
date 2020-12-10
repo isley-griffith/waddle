@@ -29,10 +29,15 @@ export default function SignIn() {
         style={styles.formInput}
         placeholder="Enter your email"
         value={email}
+        returnKeyType = "next"
         onChangeText={(email) => setEmail(email)}
         autoCapitalize="none"
+        blurOnSubmit = {false}
+        onSubmitEditing={() => { this.secondTextInput.focus(); }}
+
       />
       <TextInput
+        ref={(input) => { this.secondTextInput = input; }}
         style={styles.formInput}
         placeholder="Enter your password"
         value={password}

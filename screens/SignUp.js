@@ -55,7 +55,7 @@ export default function SignUp({ navigation }) {
           placeholder="First name*"
           value={firstName}
           onChangeText={(name) => setFirstName(name)}
-          bluronSubmit = {false}
+          blurOnSubmit = {false}
           onSubmitEditing={() => { this.secondTextInput.focus(); }}
           />
          <TextInput
@@ -65,7 +65,7 @@ export default function SignUp({ navigation }) {
           returnKeyType = "next"
           value={lastName}
           onChangeText={(name) => setLastName(name)}
-          bluronSubmit = {false}
+          blurOnSubmit = {false}
           onSubmitEditing={() => { this.emailInput.focus(); }}
          />
 
@@ -79,7 +79,7 @@ export default function SignUp({ navigation }) {
           onChangeText={(email) => setEmail(email)}
           keyboardType="email-address"
           autoCapitalize="none"
-          bluronSubmit = {false}
+          blurOnSubmit = {false}
           onSubmitEditing={() => { this.passwordInput.focus(); }}
          />
 
@@ -91,7 +91,7 @@ export default function SignUp({ navigation }) {
           value={password}
           onChangeText={(password) => setPassword(password)}
           secureTextEntry={true}
-          bluronSubmit = {false}
+          blurOnSubmit = {false}
           onSubmitEditing={() => { this.confirmPassword.focus(); }}
          />
          <TextInput
