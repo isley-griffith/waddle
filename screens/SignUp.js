@@ -50,6 +50,7 @@ export default function SignUp({ navigation }) {
        <ScrollView onBlur={Keyboard.dismiss}>
           <TextInput
           style={styles.textInput}
+          returnKeyType = "next"
           placeholder="First name*"
           value={firstName}
           onChangeText={(name) => setFirstName(name)}
@@ -57,6 +58,7 @@ export default function SignUp({ navigation }) {
          <TextInput
           style={styles.textInput}
           placeholder="Last name"
+          returnKeyType = "next"
           value={lastName}
           onChangeText={(name) => setLastName(name)}
          />
@@ -64,6 +66,8 @@ export default function SignUp({ navigation }) {
          <TextInput
           style={styles.textInput}
           placeholder="Enter your email*"
+          keyboardType = "email-address"
+          returnKeyType = "next"
           value={email}
           onChangeText={(email) => setEmail(email)}
           keyboardType="email-address"
@@ -73,6 +77,7 @@ export default function SignUp({ navigation }) {
           <TextInput
           style={styles.textInput}
           placeholder="Enter your password*"
+          returnKeyType = "next"
           value={password}
           onChangeText={(password) => setPassword(password)}
           secureTextEntry={true}
