@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Button } from 'react-native';
 import MapView from 'react-native-maps';
 import CreateRideButton from '../components/CreateRideButton';
 import RideData from '../components/RideData.js'
@@ -20,11 +20,23 @@ export default function MapScreen() {
             longitudeDelta: 0.035
           }}
           customMapStyle={mapStyleNight}
-        >
+        />
+        <View style={styles.data}>
+        {dataVisibility ? <RideData /> : null}
 
-          {dataVisibility ? <RideData /> : null}
-          <CreateRideButton setDataVisibility={setDataVisibility} dataVisibility={dataVisibility}/>
-        </MapView>
+        </View>
+          {/* <CreateRideButton dataVisibility={dataVisibility} setDataVisibility={setDataVisibility} /> */}
+          
+        
+        <View style={{
+          position: 'absolute',
+          bottom: 10,
+          left: Dimensions.get('window').width/2 - 35,
+    
+        }}>
+          <CreateRideButton dataVisibility={dataVisibility} setDataVisibility={setDataVisibility}/>
+        </View>
+        
 
       </View>
     )
@@ -34,17 +46,15 @@ export default function MapScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        
-      },
-      mapStyle: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
+    },
+    mapStyle: {
         flex: 1,
+    },
+    data: {
+      width: '90%',
+      backgroundColor: 'white'
 
-      },
+    }
 })
 
 var mapStyleNight = [ // JSON for Night map

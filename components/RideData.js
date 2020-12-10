@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
+import { Card } from 'react-native-elements'
 
 
 export default function RideData() {
     return (
         <View style={styles.style}>
-            <Text> textInComponent </Text>
+            <Card></Card>
         </View>
     )
 }

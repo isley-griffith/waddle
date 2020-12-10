@@ -6,32 +6,23 @@ const _width = 70;
 
 export default function CreateRideButton(props) {
     return (
-
-        <Button
-            // title='create'
-            titleStyle={styles.buttonText}
-            style={styles.button}
-            type='outline'
+        <View style={styles.button}>
+            <Button
+            title='create'
+            type='clear'
             onPress={() => 
                 props.setDataVisibility(!props.dataVisibility)}
-        />
-
-
+            ></Button>
+        </View>
+        
     )
 }
 
 const styles = StyleSheet.create({
     button: {
-        flex: 1,
-        position: 'absolute',
-        left: Dimensions.get('window').width/2 - _width/2,
-        top: Dimensions.get('window').height - 120,
-        width: _width,
-        height: 30,
-        backgroundColor: 'white',
-        borderRadius: 20,
-        alignItems: 'center',
-        justifyContent: 'center'
+        backgroundColor:'white',
+        width: 70,
+
     },
     buttonText: {
         color: 'black',
