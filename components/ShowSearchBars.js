@@ -4,7 +4,7 @@ import { Button } from 'react-native-elements'
 
 const _width = 70;
 
-export default function CreateRideButton(props) {
+export default function ShowSearchBars(props) {
     return (
         <View style={styles.button}>
             <Button

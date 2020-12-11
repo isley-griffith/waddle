@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Dimensions, Button } from 'react-native';
 import MapView from 'react-native-maps';
-import CreateRideButton from '../components/CreateRideButton';
+import ShowSearchBars from '../components/ShowSearchBars';
 import RideData from '../components/RideData.js'
 
 export default function MapScreen() {
@@ -34,7 +34,7 @@ export default function MapScreen() {
           bottom: 10,
           left: Dimensions.get('window').width/2 - 35,
         }}>
-          <CreateRideButton dataVisibility={dataVisibility} setDataVisibility={setDataVisibility}/>
+          <ShowSearchBars dataVisibility={dataVisibility} setDataVisibility={setDataVisibility}/>
         </View>
       </View>
     )
