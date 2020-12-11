@@ -21,11 +21,11 @@ export async function registration(email, password, lastName, firstName) {
   }
 }
 
-export async function createRide(name, start, dest, time) {
+export async function createRide(name, start, dest, date, time) {
   try {
     const currentUser = firebase.auth().currentUser;
     const db = firebase.firestore();
-    
+
 
     db.collection("rides")
       .add({
@@ -33,6 +33,7 @@ export async function createRide(name, start, dest, time) {
         name: name,
         start: start,
         dest: dest,
+        date: date,
         time: time
       });
   } catch (err) {

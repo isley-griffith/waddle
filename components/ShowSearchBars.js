@@ -8,7 +8,7 @@ export default function ShowSearchBars(props) {
     return (
         <View style={styles.button}>
             <Button
-            title='create'
+            title='Search'
             type='clear'
             onPress={() => 
                 props.setDataVisibility(!props.dataVisibility)}
