@@ -6,7 +6,9 @@ import CreateRideButton from '../components/CreateRideButton';
 import RideData from '../components/RideData.js'
 
 export default function MapScreen() {
+    
     const [dataVisibility, setDataVisibility] = useState(false);
+
     return (
       <View style={styles.container}>
         <MapView 
@@ -19,25 +21,21 @@ export default function MapScreen() {
             latitudeDelta: 0.09,
             longitudeDelta: 0.035
           }}
+          showUserLocation={true}
           customMapStyle={mapStyleNight}
         />
-        <View style={styles.data}>
-        {dataVisibility ? <RideData /> : null}
 
-        </View>
-          {/* <CreateRideButton dataVisibility={dataVisibility} setDataVisibility={setDataVisibility} /> */}
-          
-        
+        <View style={styles.data}>
+          {dataVisibility ? <RideData /> : null}
+        </View>    
+      
         <View style={{
           position: 'absolute',
           bottom: 10,
           left: Dimensions.get('window').width/2 - 35,
-    
         }}>
           <CreateRideButton dataVisibility={dataVisibility} setDataVisibility={setDataVisibility}/>
         </View>
-        
-
       </View>
     )
 }
@@ -46,14 +44,20 @@ export default function MapScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
     },
     mapStyle: {
-        flex: 1,
+        flex: 1
     },
     data: {
+      position: 'absolute',
+      top: 800,
       width: '90%',
-      backgroundColor: 'white'
-
+      backgroundColor: 'white',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 10
     }
 })
 
