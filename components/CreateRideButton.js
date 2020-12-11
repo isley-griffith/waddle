@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor:'white',
         width: 70,
-
+        
     },
     buttonText: {
         color: 'black',
