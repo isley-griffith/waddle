@@ -1,36 +1,41 @@
-import { Card, ListItem, Button, Icon, Divider } from 'react-native-elements'
-import React, { Component } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Card, ListItem, Button, Icon, Divider } from 'react-native-elements';
+import React, { useState, Component } from 'react';
+import { Text, View, Dimensions, StyleSheet } from 'react-native';
+import JoinButton from '../components/JoinButton';
+import JoinPlaceholder from '../components/JoinPlaceholder';
 
 const _font = "San Francisco";
 
-export default class TripCard extends Component {
-    render() {
-        return (
-            <View>
-                <Card>
-                    <Text style={styles.cardFont}>USER is going to DESTINATION on DATE at TIME</Text>
-                    <View style={styles.spacer}></View>
-                    <Card.Divider></Card.Divider>
-                    <Card.Title></Card.Title>
-                    <View style={styles.cardStyle}>
-                        <Button
-                        title="Join"
-                        type="clear"
-
-                        style={styles.buttonStyle}
-                        />
-                        <Button
-                        title="Itinerary"
-                        type="clear"
-
-                        style={styles.buttonStyle}
-                        />
+export default function TripCard(props) {
+    const [dataVisibility, setDataVisibility] = useState(false);
+    return (
+        <View>
+            <Card>
+                <Text style={styles.cardFont}>USER is going to DESTINATION on DATE at TIME</Text>
+                <View style={styles.spacer}></View>
+                <Card.Divider></Card.Divider>
+                <Card.Title></Card.Title>
+                <View style={styles.cardStyle}>
+                    <View>
+                    <JoinButton
+                    title="Join" 
+                    type="clear"
+                    style={styles.buttonStyle}
+                    dataVisibility={dataVisibility} setDataVisibility={setDataVisibility} 
+                    />
                     </View>
-                </Card>
+                    <Button
+                    title="Itinerary"
+                    type="clear"
+                    style={styles.buttonStyle}
+                    />
+                </View>
+                <View style={styles.data}>
+                    {dataVisibility ? <JoinPlaceholder /> : null}
+                </View>
+            </Card>
             </View>
-        )
-    }
+    )
 }
 
 const styles = StyleSheet.create({
@@ -40,7 +45,8 @@ const styles = StyleSheet.create({
     cardStyle: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        zIndex: 3,
     },
     buttonStyle: {
         paddingLeft: 30,
@@ -52,5 +58,9 @@ const styles = StyleSheet.create({
         fontFamily: _font.loadAsync,
         fontWeight: "bold"
     },
+    data: {
+        width: '100%',
+        backgroundColor: 'black'
+    }
 
 })

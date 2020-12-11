@@ -2,11 +2,12 @@ import React, { setState, useState, Component } from 'react'
 import { ScrollView, Text, View, StyleSheet, TextInput } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack';
 import { Card, ListItem, Button, Icon, Divider } from 'react-native-elements'
-
+import JoinPlaceholder from '../components/JoinPlaceholder';
 import TripCard from '../components/TripCard.js';
 
 const _font = 'San Francisco';
 const _fontSize = 32
+
 
 const styles = StyleSheet.create({
     headerText: {
@@ -59,7 +60,6 @@ export default class HomeScreen extends Component {
                 <TripCard></TripCard>
                 <TripCard></TripCard>
                 <TripCard></TripCard>
-                
             </ScrollView>
         );
     }
