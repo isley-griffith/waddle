@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from 'react'
-import { Text, View, StyleSheet, SafeAreaView, StatusBar, TouchableOpacity, Image } from 'react-native'
+import { Text, View, StyleSheet, SafeAreaView, StatusBar, TouchableOpacity, Image, Alert } from 'react-native'
 import { Avatar, Accessory, Divider, Card } from 'react-native-elements'
 import * as firebase from 'firebase';
 

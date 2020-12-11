@@ -1,12 +1,39 @@
 import { Card, ListItem, Button, Icon, Divider } from 'react-native-elements';
-import React, { useState, Component } from 'react';
-import { Text, View, Dimensions, StyleSheet } from 'react-native';
+import React, { useState, Component, useEffect } from 'react';
+import { Text, View, Dimensions, StyleSheet, Alert } from 'react-native';
 import JoinButton from '../components/JoinButton';
 import JoinPlaceholder from '../components/JoinPlaceholder';
+import * as firebase from 'firebase'
+
 
 const _font = "San Francisco";
+
+
 export default function TripCard(props) {
     const [dataVisibility, setDataVisibility] = useState(false);
+    let currentUserUID = firebase.auth().currentUser.uid;
+    // let currentRideID = firebase.
+
+    useEffect(() => {
+        async function getUserInfo(){
+            try {
+            let doc = await firebase
+                .firestore()
+                .collection('rides')
+                .doc(currentUserUID)
+                .get();
+            if (!doc.exists){
+                Alert.alert('No trip data found!')
+            } else {
+                let dataObj = doc.data();
+                setFirstName(dataObj.firstName)
+            }
+            } catch (err){
+            Alert.alert('There is an error.', err.message)
+            }
+        }
+        getUserInfo();
+    })
     return (
         <View>
             <Card>

@@ -72,8 +72,6 @@ function GetDateField() {
 }
 
 function GetTimeField() {
-
-
     return (
         <View style={styles.dateField}>
             <Input
