@@ -19,12 +19,8 @@ const styles = StyleSheet.create({
     style: {
         flex: 1,
         position: 'absolute',
-        // backgroundColor: 'lightgrey',
-        // bottom: 500,
-        // bottom: 650,
         top: -750,
         borderRadius: 4,
-        // padding: 5,
         width: "100%",
         left: 20
     },

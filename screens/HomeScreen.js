@@ -31,36 +31,33 @@ const styles = StyleSheet.create({
     }
 })
 
-export default class HomeScreen extends Component {
-    state = {input:""}
-    render() {
-        const Stack = createStackNavigator();
+export default function HomeScreen() {
+    const Stack = createStackNavigator();
 
-        return (
+    return (
 
-            <ScrollView style={styles.container}>
-                <Stack.Screen
-                name="HomeScreen"
-                component={HomeScreen}
-                options={{ headerShown: false }}
-                />
-                <View style={styles.divider}></View>
-                <View style={styles.divider}></View>
-                <View style={styles.divider}></View>
-                <Text style={styles.headerText}>Home</Text>
-                <View style={styles.divider}></View>
-                <Divider style={{ backgroundColor: 'grey' }} />
-                <View style={styles.divider}></View>
+        <ScrollView style={styles.container}>
+            <Stack.Screen
+            name="HomeScreen"
+            component={HomeScreen}
+            options={{ headerShown: false }}
+            />
+            <View style={styles.divider}></View>
+            <View style={styles.divider}></View>
+            <View style={styles.divider}></View>
+            <Text style={styles.headerText}>Home</Text>
+            <View style={styles.divider}></View>
+            <Divider style={{ backgroundColor: 'grey' }} />
+            <View style={styles.divider}></View>
 
-                <TripCard></TripCard>
-                <TripCard></TripCard>
-                <TripCard></TripCard>
-                <TripCard></TripCard>
-                <TripCard></TripCard>
-                <TripCard></TripCard>
-                <TripCard></TripCard>
-                <TripCard></TripCard>
-            </ScrollView>
-        );
-    }
+            <TripCard></TripCard>
+            <TripCard></TripCard>
+            <TripCard></TripCard>
+            <TripCard></TripCard>
+            <TripCard></TripCard>
+            <TripCard></TripCard>
+            <TripCard></TripCard>
+            <TripCard></TripCard>
+        </ScrollView>
+    );
 }

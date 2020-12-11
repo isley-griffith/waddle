@@ -2,6 +2,7 @@ import * as firebase from "firebase";
 import "firebase/firestore";
 import {Alert} from "react-native";
 
+
 export async function registration(email, password, lastName, firstName) {
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password);
@@ -20,6 +21,24 @@ export async function registration(email, password, lastName, firstName) {
   }
 }
 
+export async function createRide(name, start, dest, time) {
+  try {
+    const currentUser = firebase.auth().currentUser;
+    const db = firebase.firestore();
+    
+
+    db.collection("rides")
+      .add({
+        userId: currentUser.uid,
+        name: name,
+        start: start,
+        dest: dest,
+        time: time
+      });
+  } catch (err) {
+   Alert.alert('Something went wrong.', err.message)
+ }}
+
 export async function signIn(email, password) {
   try {
    await firebase
@@ -37,3 +56,4 @@ export async function loggingOut() {
     Alert.alert('Something went wrong.', err.message);
   }
 }
+

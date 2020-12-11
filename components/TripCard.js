@@ -5,7 +5,6 @@ import JoinButton from '../components/JoinButton';
 import JoinPlaceholder from '../components/JoinPlaceholder';
 
 const _font = "San Francisco";
-
 export default function TripCard(props) {
     const [dataVisibility, setDataVisibility] = useState(false);
     return (
@@ -34,7 +33,7 @@ export default function TripCard(props) {
                     {dataVisibility ? <JoinPlaceholder /> : null}
                 </View>
             </Card>
-            </View>
+        </View>
     )
 }
 

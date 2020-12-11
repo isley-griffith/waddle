@@ -15,62 +15,62 @@ const mapTextColor = "#818996";
 export default function ProfileScreen ( {navigation}) {
     let currentUserUID = firebase.auth().currentUser.uid;
 
-        const [firstName, setFirstName] = useState('');
-   
-        StatusBar.setBarStyle('dark-content', true);
+    const [firstName, setFirstName] = useState('');
 
-        useEffect(() => {
-            async function getUserInfo(){
-              try {
-                let doc = await firebase
-                  .firestore()
-                  .collection('users')
-                  .doc(currentUserUID)
-                  .get();
-        
-                if (!doc.exists){
-                  Alert.alert('No user data found!')
-                } else {
-                  let dataObj = doc.data();
-                  setFirstName(dataObj.firstName)
-                }
-              } catch (err){
-              Alert.alert('There is an error.', err.message)
-              }
+    StatusBar.setBarStyle('dark-content', true);
+
+    useEffect(() => {
+        async function getUserInfo(){
+            try {
+            let doc = await firebase
+                .firestore()
+                .collection('users')
+                .doc(currentUserUID)
+                .get();
+    
+            if (!doc.exists){
+                Alert.alert('No user data found!')
+            } else {
+                let dataObj = doc.data();
+                setFirstName(dataObj.firstName)
             }
-            getUserInfo();
-        })
-
-        const handlePress = () => {
-            loggingOut()
+            } catch (err){
+            Alert.alert('There is an error.', err.message)
+            }
         }
-        return ( 
-            <SafeAreaView >
-                <StatusBar backgroundColor={mapColor}></StatusBar>
-                <View style={styles.divider}></View>
-                <Text style={styles.baseText}>{firstName}'s Profile</Text>
-                <View style={styles.divider}></View>
-                <Divider style={{ backgroundColor: 'grey' }} />
-                <View>
-                    <Image source = {{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
-                           style = {styles.image} />
-                </View>
-                <View style = {{height:10}}></View>
-                    <TouchableOpacity>
-                        <Text style = {styles.optionText}>My Trips</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Text style = {styles.optionText}>Settings</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Text style = {styles.optionText}>About</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Text onPress={handlePress}style={styles.optionText}>Log Out</Text>
-                    </TouchableOpacity>
-                
-            </SafeAreaView>
-        )
+        getUserInfo();
+    })
+
+    const handlePress = () => {
+        loggingOut()
+    }
+    return ( 
+        <SafeAreaView >
+            <StatusBar backgroundColor={mapColor}></StatusBar>
+            <View style={styles.divider}></View>
+            <Text style={styles.baseText}>{firstName}'s Profile</Text>
+            <View style={styles.divider}></View>
+            <Divider style={{ backgroundColor: 'grey' }} />
+            <View>
+                <Image source = {{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+                        style = {styles.image} />
+            </View>
+            <View style = {{height:10}}></View>
+                <TouchableOpacity>
+                    <Text style = {styles.optionText}>My Trips</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Text style = {styles.optionText}>Settings</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Text style = {styles.optionText}>About</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Text onPress={handlePress}style={styles.optionText}>Log Out</Text>
+                </TouchableOpacity>
+            
+        </SafeAreaView>
+    )
 }
 
 const styles = StyleSheet.create({
