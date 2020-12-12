@@ -23,7 +23,7 @@ export default function TripCard(props) {
                 .doc(currentUserUID)
                 .get();
             if (!doc.exists){
-                Alert.alert('No trip data found!')
+                // Alert.alert('No trip data found!')
             } else {
                 let dataObj = doc.data();
                 setFirstName(dataObj.firstName)

@@ -11,11 +11,9 @@ export default function SignIn() {
     if (!email) {
       Alert.alert('Email field is required.');
     }
-
     if (!password) {
       Alert.alert('Password field is required.');
     }
-
     signIn(email, password);
     setEmail('');
     setPassword('');

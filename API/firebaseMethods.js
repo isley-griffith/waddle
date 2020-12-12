@@ -25,8 +25,6 @@ export async function createRide(name, start, dest, date, time) {
   try {
     const currentUser = firebase.auth().currentUser;
     const db = firebase.firestore();
-
-
     db.collection("rides")
       .add({
         userId: currentUser.uid,

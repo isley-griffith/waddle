@@ -21,7 +21,7 @@ export default function ShowSearchBars(props) {
 const styles = StyleSheet.create({
     button: {
         backgroundColor:'white',
-        width: 70,
+        width: 75,
         
     },
     buttonText: {
