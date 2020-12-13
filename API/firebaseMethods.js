@@ -3,6 +3,23 @@ import "firebase/firestore";
 import {Alert} from "react-native";
 
 
+export async function getRideData() {
+  try { 
+    const currentUser = firebase.auth().currentUser;
+    const db = firebase.firestore();
+    const ridesRef = db.collection('rides');
+    const queryRef = ridesRef.where('userId', '==', currentUser)
+    queryRef.get()
+
+
+    db.collection("rides")
+      .doc()
+
+  } catch (err) {
+    Alert.alert("Something went wrong", err.message)
+  }
+}
+
 export async function registration(email, password, lastName, firstName) {
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password);

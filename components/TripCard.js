@@ -1,9 +1,12 @@
 import { Card, ListItem, Button, Icon, Divider } from 'react-native-elements';
 import React, { useState, Component, useEffect } from 'react';
-import { Text, View, Dimensions, StyleSheet, Alert } from 'react-native';
+import { Text, View, Dimensions, StyleSheet, Alert, FlatList } from 'react-native';
 import JoinButton from '../components/JoinButton';
 import JoinPlaceholder from '../components/JoinPlaceholder';
 import * as firebase from 'firebase'
+import Ride from './Ride'
+
+import getRideData from '../API/firebaseMethods'
 
 
 const _font = "San Francisco";
@@ -11,55 +14,45 @@ const _font = "San Francisco";
 
 export default function TripCard(props) {
     const [dataVisibility, setDataVisibility] = useState(false);
-    let currentUserUID = firebase.auth().currentUser.uid;
-    // let currentRideID = firebase.
+    const [date, setDate] = useState('');
+    const [dest, setDest] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [start, setStart] = useState('');
+    const [time, setTime] = useState('');
+    const [userId, setUserId] = useState('');
+    const [rides, setRides ] = useState([]);
 
+
+    let currentUserUID = firebase.auth().currentUser.uid;
+    const ref = firebase.firestore().collection('rides');
     useEffect(() => {
-        async function getUserInfo(){
-            try {
-            let doc = await firebase
-                .firestore()
-                .collection('rides')
-                .doc(currentUserUID)
-                .get();
-            if (!doc.exists){
-                // Alert.alert('No trip data found!')
-            } else {
-                let dataObj = doc.data();
-                setFirstName(dataObj.firstName)
-            }
-            } catch (err){
-            Alert.alert('There is an error.', err.message)
-            }
-        }
-        getUserInfo();
-    })
+        return ref.onSnapshot((querySnapshot) => {
+            const list = [];
+            querySnapshot.forEach(doc => {
+                const {date, dest, name, start, time } = doc.data();
+                list.push({
+                    id: doc.id,
+                    date,
+                    dest,
+                    name,
+                    start,
+                    time,
+                })
+            })
+            setRides(list);
+        });
+    }, []);
+
     return (
         <View>
-            <Card>
-                <Text style={styles.cardFont}>USER is going to DESTINATION on DATE at TIME</Text>
-                <View style={styles.spacer}></View>
-                <Card.Divider></Card.Divider>
-                <Card.Title></Card.Title>
-                <View style={styles.cardStyle}>
-                    <View>
-                    <JoinButton
-                    title="Join" 
-                    type="clear"
-                    style={styles.buttonStyle}
-                    dataVisibility={dataVisibility} setDataVisibility={setDataVisibility} 
-                    />
-                    </View>
-                    <Button
-                    title="Itinerary"
-                    type="clear"
-                    style={styles.buttonStyle}
-                    />
-                </View>
-                <View style={styles.data}>
-                    {dataVisibility ? <JoinPlaceholder /> : null}
-                </View>
-            </Card>
+            <FlatList
+                style={{flex: 1}}
+                data={rides}
+                keyExtractor={(item) => item.id}
+                renderItem={({item}) => <Ride {...item} /> }
+            >
+
+            </FlatList>
         </View>
     )
 }
