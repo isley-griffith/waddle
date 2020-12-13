@@ -30,8 +30,8 @@ export default function HomeScreen() {
                 const {date, dest, name, start } = doc.data();
                 list.push({
                     id: doc.id,
-                    date,
-                    dest,
+                    date, // must turn into Date -- currently Timestamp object
+                    dest, 
                     name,
                     start,
                 })
