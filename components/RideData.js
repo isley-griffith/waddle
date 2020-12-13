@@ -5,63 +5,6 @@ import * as firebase from 'firebase'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import {createRide} from '../API/firebaseMethods'
 import RNDateTimePicker from '@react-native-community/datetimepicker';
-// import DateTimePicker from '@react-native-community/datetimepicker';
-
-
-const GooglePlacesInputStart = () => {
-    const ref = useRef();
-    useEffect(() => {
-      ref.current?.setAddressText('');
-    }, []);
-    
-    return (
-      <GooglePlacesAutocomplete
-        ref={ref}
-        placeholder='Enter starting point'
-        enablePoweredByContainer={false}
-        fetchDetails={true}
-        onChangeText={text => onChangeText(text)}
-  
-        onPress={(data, details = null) => {
-          // 'details' is provided when fetchDetails = true
-          console.log(data, details);
-        }}
-        query={{
-          key: 'AIzaSyBc1ARWe1pRX_xR5qyEyMBXE1-b5KKCcNU',
-          language: 'en',
-        }}
-  
-        currentLocation={true}
-        currentLocationLabel='Current Location'
-      />
-    );
-};
-const GooglePlacesInputEnd = () => {
-    const ref = useRef();
-  
-    useEffect(() => {
-      ref.current?.setAddressText('');
-    }, []);
-  
-    return (
-      <GooglePlacesAutocomplete
-        ref={ref}
-        placeholder='Enter destination'
-        enablePoweredByContainer={false}
-        onPress={(data, details = null) => {
-          // 'details' is provided when fetchDetails = true
-          console.log(data, details);
-        }}
-        query={{
-          key: 'AIzaSyBc1ARWe1pRX_xR5qyEyMBXE1-b5KKCcNU',
-          language: 'en',
-        }}
-        currentLocation={true}
-        currentLocationLabel='Current Location'
-      />
-    );
-  };
-
 
 export default function RideData(props) {
     const [date, setDate] = useState(new Date(1598051730000));
@@ -71,6 +14,17 @@ export default function RideData(props) {
     // const [datePick, setDatePick] = useState(new Date(1598051730000));
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
+    const [dest, setDest] = useState('');
+    const [start, setStart] = useState('');
+    const refDest = useRef();
+    useEffect(() => {
+      refDest.current?.setAddressText('');
+    }, []);
+
+    const ref = useRef();
+        useEffect(() => {ref
+        ref.current?.setAddressText('');
+    }, []);
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
@@ -98,8 +52,8 @@ export default function RideData(props) {
         } else {
             createRide(
                 firstName,
-                'fillerStart',
-                'fillerDest',
+                start,
+                dest,
                 date,
             )
             Alert.alert('Ride Created!')
@@ -108,8 +62,40 @@ export default function RideData(props) {
 
     return (
         <View style={styles.style}>
-            <GooglePlacesInputStart></GooglePlacesInputStart>
-            <GooglePlacesInputEnd></GooglePlacesInputEnd>
+            {/* InputStart */}
+            <GooglePlacesAutocomplete
+                ref={ref}
+                placeholder='Enter starting point'
+                enablePoweredByContainer={false}
+                fetchDetails={true}
+                onChangeText={text => onChangeText(text)}
+                onPress={(data, details = null) => {
+                    setStart(data.description)
+                    // console.log(data, details);
+                }}
+                query={{
+                key: 'AIzaSyBc1ARWe1pRX_xR5qyEyMBXE1-b5KKCcNU',
+                language: 'en',
+                }}
+                currentLocation={true}
+                currentLocationLabel='Current Location'
+            />
+            {/* InputStart */}
+            <GooglePlacesAutocomplete
+                ref={refDest}
+                placeholder='Enter destination'
+                enablePoweredByContainer={false}
+                onPress={(data, details = null) => {
+                    setDest(data.description);
+                    // console.log(data, details);
+                }}
+                query={{
+                key: 'AIzaSyBc1ARWe1pRX_xR5qyEyMBXE1-b5KKCcNU',
+                language: 'en',
+                }}
+                currentLocation={true}
+                currentLocationLabel='Current Location'
+            />
 
             <View style={{backgroundColor:'white', margin: 1}}>
                 <RNDateTimePicker
