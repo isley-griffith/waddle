@@ -27,14 +27,13 @@ export default function HomeScreen() {
         return ref.onSnapshot((querySnapshot) => {
             const list = [];
             querySnapshot.forEach(doc => {
-                const {date, dest, name, start, time } = doc.data();
+                const {date, dest, name, start } = doc.data();
                 list.push({
                     id: doc.id,
                     date,
                     dest,
                     name,
                     start,
-                    time,
                 })
             })
             setRides(list);
@@ -53,10 +52,6 @@ export default function HomeScreen() {
             <View style={styles.headerText}>
                 <Text style={styles.headerTitle}>Rides</Text>
             </View>
-            
-
-
-
             <FlatList
             style={{flex: 1}}
             data={rides}

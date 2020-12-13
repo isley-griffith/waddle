@@ -3,31 +3,26 @@ import * as firebase from 'firebase';
 import { View, Text, StyleSheet } from 'react-native';
 import { List, Card } from 'react-native-paper';
 
-function messageUser() {
-
-}
-
-function Ride({ id, date, dest, name, start, time }) {
-    async function toggleComplete() {
-        await firestore()
-          .collection('rides')
-          .doc(id)
-          .update({
-            time: time
-          });
-      }
+function Ride({ id, date, dest, name, start}) {
   return (
       <View style={styles.container}>
             <Card>
             <List.Item
-                title={`${start} to ${dest}`}
-                description={`on ${date} at ${time}`}
-                
-                right={props => (
-                    <List.Icon {...props} icon='message'/> 
+                title={`From ${start} to ${dest}`}
+                left={props => (
+                    <List.Icon {...props} icon='circle-outline' /> 
                 )}
             />
-
+            <List.Accordion
+                title='Show Details'    
+            >
+               <List.Item title={`${date}`}
+                right={props => (
+                    <List.Icon {...props} icon='message-outline' />
+                )}
+               />
+               
+            </List.Accordion>
           </Card> 
 
       </View>

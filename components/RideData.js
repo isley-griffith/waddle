@@ -1,8 +1,12 @@
 import React, { Component, useState, useEffect, useRef } from 'react'
 import { Text, View, StyleSheet, TextField, Alert } from 'react-native'
 import { Input, Button } from 'react-native-elements'
+import * as firebase from 'firebase'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import {createRide} from '../API/firebaseMethods'
+import RNDateTimePicker from '@react-native-community/datetimepicker';
+// import DateTimePicker from '@react-native-community/datetimepicker';
+
 
 const GooglePlacesInputStart = () => {
     const ref = useRef();
@@ -21,8 +25,6 @@ const GooglePlacesInputStart = () => {
         onPress={(data, details = null) => {
           // 'details' is provided when fetchDetails = true
           console.log(data, details);
-          
-  
         }}
         query={{
           key: 'AIzaSyBc1ARWe1pRX_xR5qyEyMBXE1-b5KKCcNU',
@@ -60,50 +62,47 @@ const GooglePlacesInputEnd = () => {
     );
   };
 
-function GetDateField() {
-    return (
-        <View style={styles.dateField}>
-            <Input
-                placeholder="Which day?: MM/DD/YYYY"
-            >
-            </Input>
-        </View>
-    )
-}
-
-function GetTimeField() {
-    return (
-        <View style={styles.dateField}>
-            <Input
-                placeholder="What time?: ex: 4:00"
-            >
-            </Input>
-        </View>
-    )
-}
 
 export default function RideData(props) {
-    const [date, setDate] = useState('');
-    const [time, setTime] = useState('');
+    const [date, setDate] = useState(new Date(1598051730000));
+    // const [time, setTime] = useState('');
+    const [firstName, setFirstName] = useState('');
 
-    const emptyState = () => {
-        setDate('');
-        setTime('');
+    // const [datePick, setDatePick] = useState(new Date(1598051730000));
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS === 'ios');
+        setDate(currentDate);
     };
+
+    let currentUserUID = firebase.auth().currentUser.uid;
+    useEffect(() => {
+        async function getUserInfo() {
+            let doc = await firebase
+                .firestore()
+                .collection('users')
+                .doc(currentUserUID)
+                .get();
+            let dataObj = doc.data();
+            setFirstName(dataObj.firstName);
+        }
+        getUserInfo()
+    })
 
     const handlePress = () => {
         if (!date) {
             Alert.alert('Date is required.');
-        } else if (!time) {
-            Alert.alert('Time is required.')
         } else {
             createRide(
-                'fillerName',
+                firstName,
                 'fillerStart',
                 'fillerDest',
                 date,
-                time
             )
+            Alert.alert('Ride Created!')
         }
     };
 
@@ -111,28 +110,20 @@ export default function RideData(props) {
         <View style={styles.style}>
             <GooglePlacesInputStart></GooglePlacesInputStart>
             <GooglePlacesInputEnd></GooglePlacesInputEnd>
-           
-            {/* GetDateField begins */}
-            <View style={styles.dateField}>
-                <Input
-                    placeholder="Which day?: MM/DD/YYYY"
-                    value={date}
-                    onChangeText={(date) => setDate(date)}
-                >
-                </Input>
-            </View>
-            {/* GetDateField ends */}
-            {/* GetTimeField begins */}
-            <View style={styles.dateField}>
-                <Input
-                    placeholder="What time?: ex: 4:00"
-                    value={time}
-                    onChangeText={(time) => setTime(time)}
 
-                >
-            </Input>
-        </View>
-            {/* GetTimeField ends */}
+            <View style={{backgroundColor:'white', margin: 1}}>
+                <RNDateTimePicker
+                    testID="dateTimePicker"
+                    value={date}
+                    is24Hour={true}
+                    mode="datetime"
+                    // display="compact"
+                    onChange={onChange}
+                />
+            </View>
+            
+            
+
             <View>
                 <Button
                 title='Create Ride'

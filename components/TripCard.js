@@ -36,7 +36,6 @@ export default function TripCard(props) {
                     dest,
                     name,
                     start,
-                    time,
                 })
             })
             setRides(list);

@@ -38,7 +38,7 @@ export async function registration(email, password, lastName, firstName) {
   }
 }
 
-export async function createRide(name, start, dest, date, time) {
+export async function createRide(name, start, dest, date) {
   try {
     const currentUser = firebase.auth().currentUser;
     const db = firebase.firestore();
@@ -48,8 +48,7 @@ export async function createRide(name, start, dest, date, time) {
         name: name,
         start: start,
         dest: dest,
-        date: date,
-        time: time
+        date: date
       });
   } catch (err) {
    Alert.alert('Something went wrong.', err.message)
