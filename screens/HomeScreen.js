@@ -22,9 +22,9 @@ export default function HomeScreen() {
     const ref = firebase.firestore().collection('rides');
     useEffect(() => {
         return ref.onSnapshot((querySnapshot) => {
-            const list = [];
+            let list = [];
             querySnapshot.forEach(doc => {
-                const {date, dest, name, start, phoneNumber } = doc.data();
+                let {date, dest, name, start, phoneNumber } = doc.data();
                 list.push({
                     id: doc.id,
                     date, // must turn into Date -- currently Timestamp object

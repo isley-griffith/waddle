@@ -5,18 +5,23 @@ import { List, Card, Button } from 'react-native-paper';
 import * as SMS from 'expo-sms';
 
 function Ride({ id, date, dest, name, start, phoneNumber }) {
+    
+
     const toDate = date.toDate(); // converting from firestore Timestamp to JS Date object
     
-    onPress = async() => {
+    onPress = async(_id, _date, _dest, _name, _start, _phoneNumber) => {
         const isAvailable = await SMS.isAvailableAsync();
-        console.log(phoneNumber);
         if (isAvailable) {
-            const status = await SMS.sendSMSAsync(
-                `${phoneNumber}`,
-                `Hey, ${name}! I would like to join your trip on Rideshare. 
-                Could you tell me more about your trip to ${dest}?`
+            console.log(dest);
+            console.log(id);
+            console.log(name);
+            console.log(phoneNumber);
+            let status = await SMS.sendSMSAsync(
+                `${_phoneNumber}`,
+                `Hey, ${_name}! I would like to join your trip on Rideshare. Could you tell me more about your trip to ${_dest}?`
             )
         } else {
+
             Alert.alert("Sorry this number is currently unavailable.");
         }
         // console.log(phoneNumber)
@@ -40,18 +45,14 @@ function Ride({ id, date, dest, name, start, phoneNumber }) {
                    <View style={styles.icons}>
                         <View style={styles.plusIcon}>
                             <Button style={{width: 20, height: 20}} icon="plus"/>
-
                         </View>
-
                         <View style={styles.messageIcon}>
-                            <Button style={{width: 20, height: 20}} icon="message-outline" onPress={onPress}/>
-
+                            <Button style={{width: 20, height: 20}} icon="message-outline" onPress={() => onPress(id, date, dest, name, start, phoneNumber)}/>
                         </View>
                    </View>
                 )}/>
             </List.Accordion>
           </Card> 
-
       </View>
   );
 }
@@ -88,4 +89,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default React.memo(Ride);
+export default Ride;
