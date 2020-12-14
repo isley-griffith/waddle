@@ -1,9 +1,6 @@
 import React, { setState, useState, Component, useEffect } from 'react'
 import { ScrollView, Text, View, StyleSheet, TextInput, FlatList } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack';
-import { Card, ListItem, Button, Icon, Divider } from 'react-native-elements'
-import JoinPlaceholder from '../components/JoinPlaceholder';
-import TripCard from '../components/TripCard.js';
 import * as firebase from 'firebase';
 
 import Ride from '../components/Ride.js'
@@ -27,13 +24,14 @@ export default function HomeScreen() {
         return ref.onSnapshot((querySnapshot) => {
             const list = [];
             querySnapshot.forEach(doc => {
-                const {date, dest, name, start } = doc.data();
+                const {date, dest, name, start, phoneNumber } = doc.data();
                 list.push({
                     id: doc.id,
                     date, // must turn into Date -- currently Timestamp object
                     dest, 
                     name,
                     start,
+                    phoneNumber
                 })
             })
             setRides(list);
@@ -41,7 +39,6 @@ export default function HomeScreen() {
     }, []);
 
     return (
-
         // <ScrollView style={styles.container}>
         <>
             <Stack.Screen
@@ -50,7 +47,7 @@ export default function HomeScreen() {
             options={{ headerShown: false }}
             />
             <View style={styles.headerText}>
-                <Text style={styles.headerTitle}>Rides</Text>
+                <Text style={styles.headerTitle}>   Rides</Text>
             </View>
             <FlatList
             style={{flex: 1}}
@@ -58,8 +55,6 @@ export default function HomeScreen() {
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => <Ride {...item} />}
             />
-                
-
         </>
     );
 }
@@ -69,8 +64,9 @@ const styles = StyleSheet.create({
         paddingTop: 64,
         paddingBottom: 16,
         backgroundColor: "#FFF",
-        alignItems: "center",
-        justifyContent: "center",
+        fontSize: 30,
+        // alignItems: "center",
+        // justifyContent: "center",
         borderBottomWidth: 1,
         borderBottomColor: "#EBECF4",
         shadowColor: "#454D64",
@@ -81,7 +77,7 @@ const styles = StyleSheet.create({
 
     },
     headerTitle: {
-        fontSize: 20,
+        fontSize: 30,
         fontWeight: "500",
     },
 

@@ -10,8 +10,6 @@ export async function getRideData() {
     const ridesRef = db.collection('rides');
     const queryRef = ridesRef.where('userId', '==', currentUser)
     queryRef.get()
-
-
     db.collection("rides")
       .doc()
 
@@ -20,7 +18,7 @@ export async function getRideData() {
   }
 }
 
-export async function registration(email, password, lastName, firstName) {
+export async function registration(email, password, lastName, firstName, phoneNumber) {
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password);
     const currentUser = firebase.auth().currentUser;
@@ -32,13 +30,14 @@ export async function registration(email, password, lastName, firstName) {
         email: currentUser.email,
         lastName: lastName,
         firstName: firstName,
+        phoneNumber: phoneNumber
       });
   } catch (err) {
     Alert.alert("Something went wrong.", err.message);
   }
 }
 
-export async function createRide(name, start, dest, date) {
+export async function createRide(name, start, dest, date, phoneNumber) {
   try {
     const currentUser = firebase.auth().currentUser;
     const db = firebase.firestore();
@@ -48,7 +47,8 @@ export async function createRide(name, start, dest, date) {
         name: name,
         start: start,
         dest: dest,
-        date: date
+        date: date,
+        phoneNumber: phoneNumber,
       });
   } catch (err) {
    Alert.alert('Something went wrong.', err.message)

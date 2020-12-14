@@ -8,10 +8,7 @@ export default function WelcomeScreen ({navigation}) {
       style={styles.background}
       source={require('../assets/background.jpg')}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Wing</Text>
-        {/* <Image
-          source={require('../assets/logo.png')}
-        /> */}
+        <Text style={styles.title}>Rideshare</Text>
       </View>
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Sign Up')} >
         <Text style={styles.buttonText}>Sign Up</Text>

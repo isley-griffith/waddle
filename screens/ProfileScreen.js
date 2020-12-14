@@ -1,8 +1,7 @@
 import React, { Component, useEffect, useState } from 'react'
-import { Text, View, StyleSheet, SafeAreaView, StatusBar, TouchableOpacity, Image, Alert } from 'react-native'
-import { Avatar, Accessory, Divider, Card } from 'react-native-elements'
+import { View, StyleSheet, SafeAreaView, StatusBar, TouchableOpacity, Image, Alert } from 'react-native'
 import * as firebase from 'firebase';
-
+import {Avatar, Title, Caption, Text, TouchableRipple } from 'react-native-paper';
 import {loggingOut} from '../API/firebaseMethods'
 
 const _font = 'San Francisco';
@@ -45,12 +44,11 @@ export default function ProfileScreen ( {navigation}) {
         loggingOut()
     }
     return ( 
-        <SafeAreaView >
-            <StatusBar backgroundColor={mapColor}></StatusBar>
-            <View style={styles.divider}></View>
-            <Text style={styles.baseText}>{firstName}'s Profile</Text>
-            <View style={styles.divider}></View>
-            <Divider style={{ backgroundColor: 'grey' }} />
+
+        <View>
+            <View style={styles.headerText}>
+                <Text style={styles.headerTitle}>   Profile</Text>
+            </View>
             <View>
                 <Image source = {{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
                         style = {styles.image} />
@@ -69,7 +67,7 @@ export default function ProfileScreen ( {navigation}) {
                     <Text onPress={handlePress}style={styles.optionText}>Log Out</Text>
                 </TouchableOpacity>
             
-        </SafeAreaView>
+        </View>
     )
 }
 
@@ -80,6 +78,26 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: "bold",
         color: "black",
+    },
+    headerText: {
+        paddingTop: 64,
+        paddingBottom: 16,
+        backgroundColor: "#FFF",
+        fontSize: 30,
+        // alignItems: "center",
+        // justifyContent: "center",
+        borderBottomWidth: 1,
+        borderBottomColor: "#EBECF4",
+        shadowColor: "#454D64",
+        shadowOffset: {height: 5},
+        shadowRadius: 15,
+        shadowOpacity: 0.2,
+        zIndex: 10
+
+    },
+    headerTitle: {
+        fontSize: 30,
+        fontWeight: "500",
     },
     divider: {
         height: 12

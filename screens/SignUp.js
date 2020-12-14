@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Alert, ScrollView, Keyboard ,StyleSheet, SafeAreaView} from 'react-native';
+import { View, Text, TextInput, Alert, ScrollView, Keyboard, StyleSheet, SafeAreaView} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { registration } from '../API/firebaseMethods';
 
@@ -9,6 +9,7 @@ export default function SignUp({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
 
   const emptyState = () => {
     setFirstName('');
@@ -16,6 +17,7 @@ export default function SignUp({ navigation }) {
     setEmail('');
     setPassword('');
     setConfirmPassword('');
+    setPhoneNumber('');
   };
 
   const handlePress = () => {
@@ -30,12 +32,15 @@ export default function SignUp({ navigation }) {
       Alert.alert('Confirm password field is required.');
     } else if (password !== confirmPassword) {
       Alert.alert('Password does not match!');
+    } else if (!phoneNumber) {
+       Alert.alert('Phone number field is required.');
     } else {
       registration(
         email,
         password,
         lastName,
         firstName,
+        phoneNumber
       );
       navigation.navigate('Loading');
       emptyState();
@@ -50,6 +55,16 @@ export default function SignUp({ navigation }) {
        {/* onBlur={Keyboard.dismiss} */}
        <ScrollView keyboardShouldPersistTaps="always">
           <TextInput
+          style={styles.textInput}
+          returnKeyType = "next"
+          placeholder="Phone number i.e. 1115551111"
+          value={phoneNumber}
+          onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+          blurOnSubmit = {false}
+          onSubmitEditing={() => { this.firstTextInput.focus(); }}
+          />
+          <TextInput
+          ref={(input) => { this.firstTextInput = input; }}
           style={styles.textInput}
           returnKeyType = "next"
           placeholder="First name*"

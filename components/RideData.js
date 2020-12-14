@@ -16,6 +16,7 @@ export default function RideData(props) {
     const [show, setShow] = useState(false);
     const [dest, setDest] = useState('');
     const [start, setStart] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('')
     const refDest = useRef();
     useEffect(() => {
       refDest.current?.setAddressText('');
@@ -42,6 +43,7 @@ export default function RideData(props) {
                 .get();
             let dataObj = doc.data();
             setFirstName(dataObj.firstName);
+            setPhoneNumber(dataObj.phoneNumber);
         }
         getUserInfo()
     })
@@ -55,6 +57,7 @@ export default function RideData(props) {
                 start,
                 dest,
                 date,
+                phoneNumber
             )
             Alert.alert('Ride Created!')
         }
@@ -97,7 +100,7 @@ export default function RideData(props) {
                 currentLocationLabel='Current Location'
             />
 
-            <View style={{backgroundColor:'white', margin: 1}}>
+            <View style={{backgroundColor:'white'}}>
                 <RNDateTimePicker
                     testID="dateTimePicker"
                     value={date}
@@ -107,10 +110,7 @@ export default function RideData(props) {
                     onChange={onChange}
                 />
             </View>
-            
-            
-
-            <View>
+            <View style={styles.buttonStyle}>
                 <Button
                 title='Create Ride'
                 onPress={handlePress}
@@ -130,7 +130,10 @@ const styles = StyleSheet.create({
         left: 20
     },
     dateField: {
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+    },
+    buttonStyle: {
+        marginTop: 5
     }
 })
 
