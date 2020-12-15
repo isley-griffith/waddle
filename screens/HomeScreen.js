@@ -53,7 +53,7 @@ export default function HomeScreen() {
         options={{ headerShown: false }}
       />
       <View style={styles.headerText}>
-        <Text style={styles.headerTitle}> Rides</Text>
+        <Text style={styles.headerTitle}>   Rides</Text>
       </View>
       <FlatList
         style={{ flex: 1 }}

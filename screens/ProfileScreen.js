@@ -39,24 +39,27 @@ export default function ProfileScreen({ navigation }) {
   StatusBar.setBarStyle("dark-content", true);
 
   const ref = firebase.firestore().collection("rides");
+  const db = firebase.firestore();
+        const currUserRidesRef = db
+          .collection("users")
+          .doc(currentUserUID)
+          .collection("currUserRides");
   useEffect(() => {
-    async function getRideInfo() {
-      return ref.onSnapshot((querySnapshot) => {
-        let _list = [];
-        querySnapshot.forEach((doc) => {
-          let { id, date, dest, name, start, phoneNumber } = doc.data();
-          _list.push({
-            id: id,
-            date,
-            dest,
-            name,
-            start,
-            phoneNumber,
-          });
+    async function getCurrUserRides() {
+        return currUserRidesRef.onSnapshot((querySnapshot) => {
+          let list = [];
+          querySnapshot.forEach((doc) => {
+            let { date, dest, start } = doc.data();
+            list.push({
+              date: date,
+              dest: dest,
+              start: start,
+          });  
         });
-        setRides(_list);
-      });
+        setOnlyCurrentRides(list);
+        });
     }
+
     async function getUserInfo() {
       try {
         let doc = await firebase
@@ -77,9 +80,8 @@ export default function ProfileScreen({ navigation }) {
         Alert.alert("There is an error.", err.message);
       }
     }
-
-    getRideInfo();
     getUserInfo();
+    getCurrUserRides();
   }, []);
   let firstInitial = firstName.charAt(0);
   let lastInitial = lastName.charAt(0);
@@ -87,9 +89,6 @@ export default function ProfileScreen({ navigation }) {
   const handlePress = () => {
     loggingOut();
   };
-
-  // let thing = JSON.parse(rides);
-  // console.log(thing)
 
   return (
     <SafeAreaView style={styles.container}>
@@ -127,13 +126,13 @@ export default function ProfileScreen({ navigation }) {
       </View>
       <View style={styles.userInfoSection}>
         <View style={styles.row}>
-          <Icon name="phone" color="#777777" size="20" />
+          <Icon name="phone" color="#777777" size={20} />
           <Text style={{ color: "#777777", marginLeft: 20, marginTop: 3 }}>
             {phoneNumber}
           </Text>
         </View>
         <View style={styles.row}>
-          <Icon name="email" color="#777777" size="20" />
+          <Icon name="email" color="#777777" size={20} />
           <Text style={{ color: "#777777", marginLeft: 20, marginTop: 3 }}>
             {email}
           </Text>
@@ -145,7 +144,7 @@ export default function ProfileScreen({ navigation }) {
       <View style={styles.infoBoxWrapper}>
         <FlatList
           style={{ flex: 1 }}
-          data={rides}
+          data={onlyCurrentRides}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <ProfileRide {...item} />}
         />

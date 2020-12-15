@@ -50,6 +50,11 @@ export async function createRide(name, start, dest, date, phoneNumber) {
         date: date,
         phoneNumber: phoneNumber,
       });
+    db.collection("users").doc(currentUser.uid).collection("currUserRides").add({
+      start: start,
+      dest: dest,
+      date: date
+    });
   } catch (err) {
    Alert.alert('Something went wrong.', err.message)
  }}
