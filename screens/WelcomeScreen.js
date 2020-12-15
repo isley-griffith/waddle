@@ -1,62 +1,69 @@
-import {ImageBackground, StyleSheet, View, Text, Image } from 'react-native';
-import React from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ImageBackground, StyleSheet, View, Text, Image } from "react-native";
+import React from "react";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default function WelcomeScreen ({navigation}) {
+export default function WelcomeScreen({ navigation }) {
   return (
-     <ImageBackground
+    <ImageBackground
       style={styles.background}
-      source={require('../assets/background.jpg')}>
+      source={require("../assets/background.jpg")}
+    >
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Rideshare</Text>
       </View>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Sign Up')} >
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate("Sign Up")}
+      >
         <Text style={styles.buttonText}>Sign Up</Text>
-       </TouchableOpacity>
+      </TouchableOpacity>
       <Text style={styles.inlineText}>Already have an account?</Text>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Sign In')}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate("Sign In")}
+      >
         <Text style={styles.buttonText}>Sign In</Text>
       </TouchableOpacity>
-     </ImageBackground>
-  )
+    </ImageBackground>
+  );
 }
 
 const styles = StyleSheet.create({
-    background: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    button: {
-      width: 250,
-      borderRadius: 15,
-      borderWidth: 3,
-      borderColor: 'white',
-      backgroundColor: '#172235',
-      padding: 5,
-      margin: '2%'
-    },
-    buttonText: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      color: 'white',
-      textAlign: 'center'
-    },
-    inlineText: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      color: 'black',
-      textAlign: 'center',
-      marginTop: '5%',
-    },
-    title: {
-      fontSize: 45,
-      fontWeight: 'bold',
-      color: 'white',
-      textAlign: 'center'
-    },
-    titleContainer: {
-      position: 'absolute',
-      top: 170,
-    },
-  });
+  background: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  button: {
+    width: 250,
+    borderRadius: 15,
+    borderWidth: 3,
+    borderColor: "white",
+    backgroundColor: "#172235",
+    padding: 5,
+    margin: "2%",
+  },
+  buttonText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "white",
+    textAlign: "center",
+  },
+  inlineText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "black",
+    textAlign: "center",
+    marginTop: "5%",
+  },
+  title: {
+    fontSize: 45,
+    fontWeight: "bold",
+    color: "white",
+    textAlign: "center",
+  },
+  titleContainer: {
+    position: "absolute",
+    top: 170,
+  },
+});
