@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Alert } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import {signIn} from '../API/firebaseMethods';
+import React, { useState } from "react";
+import { View, Text, TextInput, StyleSheet, Alert } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { signIn } from "../API/firebaseMethods";
 
 export default function SignIn() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handlePress = () => {
     if (!email) {
-      Alert.alert('Email field is required.');
+      Alert.alert("Email field is required.");
     }
     if (!password) {
-      Alert.alert('Password field is required.');
+      Alert.alert("Password field is required.");
     }
     signIn(email, password);
-    setEmail('');
-    setPassword('');
+    setEmail("");
+    setPassword("");
   };
 
   return (
@@ -27,15 +27,18 @@ export default function SignIn() {
         style={styles.formInput}
         placeholder="Enter your email"
         value={email}
-        returnKeyType = "next"
+        returnKeyType="next"
         onChangeText={(email) => setEmail(email)}
         autoCapitalize="none"
-        blurOnSubmit = {false}
-        onSubmitEditing={() => { this.secondTextInput.focus(); }}
-
+        blurOnSubmit={false}
+        onSubmitEditing={() => {
+          this.secondTextInput.focus();
+        }}
       />
       <TextInput
-        ref={(input) => { this.secondTextInput = input; }}
+        ref={(input) => {
+          this.secondTextInput = input;
+        }}
         style={styles.formInput}
         placeholder="Enter your password"
         value={password}
@@ -46,48 +49,47 @@ export default function SignIn() {
       <TouchableOpacity style={styles.button} onPress={handlePress}>
         <Text style={styles.buttonText}>Submit</Text>
       </TouchableOpacity>
-
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-    button: {
-      width: 200,
-      padding: 5,
-      backgroundColor: '#172235',
-      borderWidth: 2,
-      borderColor: 'white',
-      borderRadius: 15,
-      alignSelf: 'center',
-      margin: "2%",
-    },
-    buttonText: {
-      fontSize:20,
-      color: 'white',
-      fontWeight: 'bold',
-      textAlign: 'center',
-    },
-    container: {
-      height: '100%',
-      width: '100%',
-      backgroundColor: 'white',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    formInput: {
-      width: 300,
-      fontSize:18,
-      borderWidth: 1,
-      borderColor:'#a4eddf',
-      padding: 10,
-      margin: 5,
-    },
-    text: {
-      textAlign: 'center',
-      fontSize: 20,
-      margin: 10,
-      fontWeight: 'bold',
-      color: '#2E6194',
-    }
-  });
+  button: {
+    width: 200,
+    padding: 5,
+    backgroundColor: "#172235",
+    borderWidth: 2,
+    borderColor: "white",
+    borderRadius: 15,
+    alignSelf: "center",
+    margin: "2%",
+  },
+  buttonText: {
+    fontSize: 20,
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  container: {
+    height: "100%",
+    width: "100%",
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  formInput: {
+    width: 300,
+    fontSize: 18,
+    borderWidth: 1,
+    borderColor: "#a4eddf",
+    padding: 10,
+    margin: 5,
+  },
+  text: {
+    textAlign: "center",
+    fontSize: 20,
+    margin: 10,
+    fontWeight: "bold",
+    color: "#2E6194",
+  },
+});

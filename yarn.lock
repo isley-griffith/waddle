@@ -6111,6 +6111,11 @@ react-native-elements@^3.0.0-alpha.1:
     react-native-size-matters "^0.3.1"
     react-native-status-bar-height "^2.5.0"
 
+react-native-fbsdk@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-fbsdk/-/react-native-fbsdk-3.0.0.tgz#07ef41758bb17a0acaff744008af625a45ef9a01"
+  integrity sha512-i0JocuzLlGk13J0xFDjm8GlX7SADAL2kh/syE/HOn5HHdW+PFjC31MNj5AtzIw2TicHXpHGO6VPKNfdWFbxboA==
+
 react-native-gesture-handler@~1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.7.0.tgz#0ef74a5ba836832e497dc49eb1ce58baa6c617e5"
