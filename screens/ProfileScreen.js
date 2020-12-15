@@ -4,7 +4,7 @@ import * as firebase from 'firebase';
 import {Avatar, Title, Caption, Text, TouchableRipple } from 'react-native-paper';
 import {loggingOut} from '../API/firebaseMethods'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Ride from '../components/Ride'
+import ProfileRide from '../components/ProfileRide'
 const _font = 'San Francisco';
 const _fontSize = 32;
 const mapColor = "#262f3d";
@@ -123,7 +123,7 @@ export default function ProfileScreen ( {navigation}) {
                 style={{flex: 1}}
                 data={rides}
                 keyExtractor={(item) => item.id}
-                renderItem={({ item }) => <Ride {...item} />}
+                renderItem={({ item }) => <ProfileRide {...item} />}
             />
             </View>
         </SafeAreaView>

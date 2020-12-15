@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { List, Card, Button, Avatar } from 'react-native-paper';
 import * as SMS from 'expo-sms';
 
-function Ride({ id, date, dest, name, start, phoneNumber }) {
+function ProfileRide({ id, date, dest, name, start, phoneNumber }) {
     
 
     const toDate = date.toDate(); // converting from firestore Timestamp to JS Date object
@@ -24,30 +24,13 @@ function Ride({ id, date, dest, name, start, phoneNumber }) {
     }
      return (
         <View style={styles.container}>
-            <Card style={{borderRadius: 30, marginTop: 5, marginLeft: 5, marginRight: 5}}>
+            <Card style={{borderRadius: 30}}>
             <List.Item
                 title={`To ${dest}`}
                 description={`From ${start}`}
-                left={props => (
-                    <Avatar.Text label={`${name.charAt(0)}`}></Avatar.Text>
-                )}
             />
-            <List.Accordion
-                title='Show Details'    
-            >
-               <List.Item title={`${toDate}`}/>
-               <List.Item title={`Driver: ${name}`} />
-               <List.Item right={props => (
-                   <View style={styles.icons}>
-                        <View style={styles.plusIcon}>
-                            <Button style={{width: 20, height: 20}} icon="plus"/>
-                        </View>
-                        <View style={styles.messageIcon}>
-                            <Button style={{width: 20, height: 20}} icon="message-outline" onPress={() => onPress(id, date, dest, name, start, phoneNumber)}/>
-                        </View>
-                   </View>
-                )}/>
-            </List.Accordion>
+            <List.Item title={`${toDate}`}/>
+            <List.Item title={`${name}`} />
           </Card> 
       </View>
   );
@@ -85,4 +68,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default Ride;
+export default ProfileRide;

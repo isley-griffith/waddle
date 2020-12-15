@@ -52,6 +52,7 @@ export default function HomeScreen() {
             <FlatList
             style={{flex: 1}}
             data={rides}
+            showsVerticalScrollIndicator={false}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => <Ride {...item} />}
             />
