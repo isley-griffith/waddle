@@ -1,7 +1,7 @@
 import React from 'react';
 import * as firebase from 'firebase';
 import { View, Text, StyleSheet } from 'react-native';
-import { List, Card, Button } from 'react-native-paper';
+import { List, Card, Button, Avatar } from 'react-native-paper';
 import * as SMS from 'expo-sms';
 
 function Ride({ id, date, dest, name, start, phoneNumber }) {
@@ -33,7 +33,7 @@ function Ride({ id, date, dest, name, start, phoneNumber }) {
                 title={`To ${dest}`}
                 description={`From ${start}`}
                 left={props => (
-                    <List.Icon {...props} icon='circle-outline' /> 
+                    <Avatar.Text label={`${name.charAt(0)}`}></Avatar.Text>
                 )}
             />
             <List.Accordion

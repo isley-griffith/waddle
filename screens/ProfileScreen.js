@@ -1,9 +1,10 @@
 import React, { Component, useEffect, useState } from 'react'
-import { View, StyleSheet, SafeAreaView, StatusBar, TouchableOpacity, Image, Alert } from 'react-native'
+import { View, StyleSheet, SafeAreaView, StatusBar, TouchableOpacity, Image, Alert, FlatList } from 'react-native'
 import * as firebase from 'firebase';
 import {Avatar, Title, Caption, Text, TouchableRipple } from 'react-native-paper';
 import {loggingOut} from '../API/firebaseMethods'
-
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ride from '../components/Ride'
 const _font = 'San Francisco';
 const _fontSize = 32;
 const mapColor = "#262f3d";
@@ -15,114 +16,148 @@ export default function ProfileScreen ( {navigation}) {
     let currentUserUID = firebase.auth().currentUser.uid;
 
     const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [email, setEmail] = useState('');
+    const [rides, setRides] = useState([]);
+    const [allRideIds, setAllRideIds] = useState([]);
+    const [onlyCurrentRides, setOnlyCurrentRides] = useState([]);
 
     StatusBar.setBarStyle('dark-content', true);
 
+    const ref = firebase.firestore().collection('rides');
     useEffect(() => {
-        async function getUserInfo(){
+
+        async function getRideInfo() {
+            return ref.onSnapshot((querySnapshot) => {
+                let _list = [];
+                querySnapshot.forEach(doc => {
+                    let {id, date, dest, name, start, phoneNumber} = doc.data();
+                    _list.push({
+                        id: id,
+                        date,
+                        dest, 
+                        name,
+                        start,
+                        phoneNumber
+                    })
+                })
+                setRides(_list)
+            })
+        }
+        async function getUserInfo() {
             try {
-            let doc = await firebase
-                .firestore()
-                .collection('users')
-                .doc(currentUserUID)
-                .get();
-    
+                let doc = await firebase
+                    .firestore()
+                    .collection('users')
+                    .doc(currentUserUID)
+                    .get();
             if (!doc.exists){
                 Alert.alert('No user data found!')
             } else {
                 let dataObj = doc.data();
-                setFirstName(dataObj.firstName)
+                setFirstName(dataObj.firstName);
+                setLastName(dataObj.lastName);
+                setPhoneNumber(dataObj.phoneNumber);
+                setEmail(dataObj.email);
             }
             } catch (err){
-            Alert.alert('There is an error.', err.message)
+            Alert.alert('There is an error.', err.message);
             }
         }
+        
+        getRideInfo();
         getUserInfo();
-    })
+    }, []);
+    let firstInitial = firstName.charAt(0);
+    let lastInitial = lastName.charAt(0);
 
     const handlePress = () => {
         loggingOut()
     }
+    
+
+    // let thing = JSON.parse(rides);
+    // console.log(thing)    
+
+
     return ( 
 
-        <View>
-            <View style={styles.headerText}>
-                <Text style={styles.headerTitle}>   Profile</Text>
+        <SafeAreaView style={styles.container}>
+            <View style={styles.userInfoSection}>
+                <View style={{flexDirection: 'row', marginTop: 15}}>
+                    <Avatar.Text
+                        label={`${firstInitial}${lastInitial}`}
+
+                        />
+                    <View style={{marginLeft: 20}}>
+                        <Title style={[styles.title, {
+                            marginTop: 15, 
+                            marginBottom: 5,
+                            }]}>{firstName} {lastName}</Title>
+                        <Caption style={styles.caption}>Member</Caption>
+                    </View>
+                    <TouchableOpacity style={[styles.container, {
+                        marginTop: 15,
+                        marginBottom: 5
+                    }]}>
+                        <Text onPress={handlePress}style={styles.optionText}>Log Out</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-            <View>
-                <Image source = {{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
-                        style = {styles.image} />
+            <View style={styles.userInfoSection}>
+                <View style={styles.row}>
+                    <Icon name="phone" color="#777777" size='20'/>
+                    <Text style={{color:"#777777", marginLeft: 20, marginTop: 3}}>{phoneNumber}</Text>
+                </View>
+                <View style={styles.row}>
+                    <Icon name="email" color="#777777" size='20'/>
+                    <Text style={{color:"#777777", marginLeft: 20, marginTop: 3}}>{email}</Text>
+                </View>
             </View>
-            <View style = {{height:10}}></View>
-                <TouchableOpacity>
-                    <Text style = {styles.optionText}>My Trips</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Text style = {styles.optionText}>Settings</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Text style = {styles.optionText}>About</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Text onPress={handlePress}style={styles.optionText}>Log Out</Text>
-                </TouchableOpacity>
-            
-        </View>
+            <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                <Title>Your Rides</Title>
+            </View>
+            <View style={styles.infoBoxWrapper}>
+            <FlatList
+                style={{flex: 1}}
+                data={rides}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => <Ride {...item} />}
+            />
+            </View>
+        </SafeAreaView>
     )
+
 }
 
 const styles = StyleSheet.create({
-    baseText: {
-        fontFamily: _font.loadAsync,
-        fontSize: _fontSize,
-        textAlign: 'center',
-        fontWeight: "bold",
-        color: "black",
+    container: {
+        flex: 1
     },
-    headerText: {
-        paddingTop: 64,
-        paddingBottom: 16,
-        backgroundColor: "#FFF",
-        fontSize: 30,
-        // alignItems: "center",
-        // justifyContent: "center",
-        borderBottomWidth: 1,
-        borderBottomColor: "#EBECF4",
-        shadowColor: "#454D64",
-        shadowOffset: {height: 5},
-        shadowRadius: 15,
-        shadowOpacity: 0.2,
-        zIndex: 10
-
-    },
-    headerTitle: {
-        fontSize: 30,
-        fontWeight: "500",
-    },
-    divider: {
-        height: 12
-    },
-    contentBody: {
-        height: "100%",
+    row: {
+        flexDirection: 'row'
     },
     optionText: {
         fontFamily: _font.loadAsync,
         fontSize: 25,
-        fontWeight: "bold",
-        textAlign: "justify",
         color: "black",
-        paddingLeft: 50,
-        marginTop: 25
+        marginLeft: 40
     },
-    fakeButton: {
-        alignItems: "center",
-        backgroundColor: "white",
+    infoBoxWrapper: {
+        borderTopColor: '#dddddd',
+        borderTopWidth: 1,
+        borderBottomColor: '#dddddd',
+        borderBottomWidth: 1,
+        flexDirection: 'row',
+        height: 300
     },
-    image: {
-        width: 100,
-        height:100,
-        marginTop:30,
-        marginLeft: 50
+    userInfoSection: {
+        paddingHorizontal: 30,
+        marginBottom: 25,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold'
     }
-
 }) 
