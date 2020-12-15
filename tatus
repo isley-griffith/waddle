@@ -1,0 +1,13 @@
+[1mdiff --git a/screens/SignUp.js b/screens/SignUp.js[m
+[1mindex 58caf79..dd6f2b7 100644[m
+[1m--- a/screens/SignUp.js[m
+[1m+++ b/screens/SignUp.js[m
+[36m@@ -31,7 +31,7 @@[m [mexport default function SignUp({ navigation }) {[m
+       setPassword('');[m
+       Alert.alert('Confirm password field is required.');[m
+     } else if (password !== confirmPassword) {[m
+[31m-      Alert.alert('Password does not match!');[m
+[32m+[m[32m      Alert.alert('Passwords do not match!');[m
+     } else if (!phoneNumber) {[m
+        Alert.alert('Phone number field is required.');[m
+     } else {[m
