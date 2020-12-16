@@ -145,7 +145,7 @@ export default function ProfileScreen({ navigation }) {
         <FlatList
           style={{ flex: 1 }}
           data={onlyCurrentRides}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => { return item.id}}
           renderItem={({ item }) => <ProfileRide {...item} />}
         />
       </View>

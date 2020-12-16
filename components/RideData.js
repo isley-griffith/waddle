@@ -8,9 +8,7 @@ import RNDateTimePicker from "@react-native-community/datetimepicker";
 
 export default function RideData(props) {
   const [date, setDate] = useState(new Date(1598051730000));
-  // const [time, setTime] = useState('');
   const [firstName, setFirstName] = useState("");
-  // const [datePick, setDatePick] = useState(new Date(1598051730000));
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
   const [dest, setDest] = useState("");
@@ -32,7 +30,7 @@ export default function RideData(props) {
     setShow(Platform.OS === "ios");
     setDate(currentDate);
   };
-  
+
   let currentUserUID = firebase.auth().currentUser.uid;
   useEffect(() => {
     async function getUserInfo() {
@@ -68,7 +66,6 @@ export default function RideData(props) {
         onChangeText={(text) => onChangeText(text)}
         onPress={(data, details = null) => {
           setStart(data.description);
-          // console.log(data, details);
         }}
         query={{
           key: "AIzaSyBc1ARWe1pRX_xR5qyEyMBXE1-b5KKCcNU",
